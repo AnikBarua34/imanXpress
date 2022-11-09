@@ -1,23 +1,18 @@
-import { Button, Container, Grid } from "@mui/material";
+import "./Dashboardhome.css";
 import React, { useState, useEffect } from "react";
-import Footer from "../../Shared/Footer/Footer";
-import Navbar from "../../Shared/Navbar/Navbar";
-import "./Allriders.css";
-import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import { db } from "../../Pages/Login/firebase.init";
-import Userchatmodal from "../../Component/Modal/Userchatmodal";
-import rider2 from "../../img/rider2.jpg";
-
+import Userchatmodal from "../../../Component/Modal/Userchatmodal";
+import rider2 from "../../..//img/rider2.jpg";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import axios from "axios";
-import useAuth from "../../Hooks/useAuth";
-function Allriders() {
+import useAuth from "../../../Hooks/useAuth";
+
+function AllridersInDashboard({ darkMode }) {
   const [allriders, setAllriders] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [riderinfo, setRiderinfo] = useState({});
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
-  const [status, setStatus] = useState();
   const { loginstatus } = useAuth();
   console.log(loginstatus);
 
@@ -46,7 +41,23 @@ function Allriders() {
     <>
       {" "}
       <title>IMan Xpress || All Riders</title>
-      <Navbar />
+      <Box>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: "bold",
+            marginTop: "18px",
+            marginLeft: "27px",
+            color: `${darkMode ? "white" : "#323232"}`,
+            mr: 3,
+          }}
+        >
+          Chat with Riders
+        </Typography>
+        <Typography color="text.secondary" sx={{ marginLeft: "27px" }}>
+          our all available riders are here to pick up products for delivery{" "}
+        </Typography>
+      </Box>
       <Container style={{ marginTop: "30px", marginBottom: "30px" }}>
         <Grid container spacing={2}>
           {allriders.map((info) => {
@@ -55,10 +66,10 @@ function Allriders() {
                 <div className="card-container">
                   <span
                     className={`${
-                      info.login_status == 0 ? "pro" : "pro-online"
+                      info.login_status === 0 ? "pro" : "pro-online"
                     }`}
                   >
-                    {info.login_status == 0 ? "offline" : "online"}
+                    {info.login_status === 0 ? "offline" : "online"}
                   </span>
                   <img
                     className="round"
@@ -84,7 +95,6 @@ function Allriders() {
           })}
         </Grid>
       </Container>
-      <Footer />
       <Userchatmodal
         openModal={openModal}
         handleClose={handleClose}
@@ -94,4 +104,4 @@ function Allriders() {
   );
 }
 
-export default Allriders;
+export default AllridersInDashboard;

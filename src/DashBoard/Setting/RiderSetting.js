@@ -1,38 +1,57 @@
-import { Button, Card, CardContent, CardHeader, Container, Divider, Grid, TextField, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import axios from 'axios';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import Swal from 'sweetalert2';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
+  Divider,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Box } from "@mui/system";
+import axios from "axios";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const RiderSetting = () => {
   const { register, handleSubmit, reset } = useForm();
-  const [password, setPassword] = useState({ password: "", confirmPassword: "" });
+  const [password, setPassword] = useState({
+    password: "",
+    confirmPassword: "",
+  });
   console.log(password);
   // rider data fetch from local storage
-  const rider = localStorage.getItem('riderInfo')
-  const riderInfo = JSON.parse(rider)
+  const rider = localStorage.getItem("riderInfo");
+  const riderInfo = JSON.parse(rider);
   console.log(riderInfo);
 
   // submit
   const onSubmit = (data) => {
-    console.log('data', password.password);
-    data.password = password.password
+    console.log("data", password.password);
+    data.password = password.password;
     if (password.password === password.confirmPassword) {
-      axios.post(`https://iman-xpress.herokuapp.com/api/riderProfile/updateRiderPass/${riderInfo.email}`, data).then(res => {
-        console.log(res.data)
-        if (res.data.modifiedCount) {
-          console.log(data);
-          Swal.fire({
-            icon: 'success',
-            title: 'Rider Password Updated Successfully',
-          });
-        }
-      }).catch(err => console.log(err))
+      axios
+        .post(
+          `http://localhost:8080/api/riderProfile/updateRiderPass/${riderInfo.email}`,
+          data
+        )
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.modifiedCount) {
+            console.log(data);
+            Swal.fire({
+              icon: "success",
+              title: "Rider Password Updated Successfully",
+            });
+          }
+        })
+        .catch((err) => console.log(err));
     } else {
       Swal.fire({
-        icon: 'error',
-        title: 'Please match Your Password',
+        icon: "error",
+        title: "Please match Your Password",
       });
     }
   };
@@ -40,9 +59,9 @@ const RiderSetting = () => {
   const handlePassword = (e) => {
     setPassword({
       ...password,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <Box
@@ -50,68 +69,45 @@ const RiderSetting = () => {
       sx={{
         flexGrow: 1,
         py: 8,
-
-
       }}
     >
       <Container maxWidth="lg">
-
-
         <Grid
           container
-          spacing={3} sx={{
-            display: 'flex', justifyContent: 'center',
-            alignItems: 'center'
+          spacing={3}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-
-          <Grid
-            item
-            lg={8}
-            md={8}
-            xs={12}
-          >
-            <div><Typography
-              sx={{ mb: 3, }}
-              variant="h4" fontWeight="bold"
-            >
-              Setting
-            </Typography>
-              <form
-
-                noValidate
-                onSubmit={handleSubmit(onSubmit)}
-              >
+          <Grid item lg={8} md={8} xs={12}>
+            <div>
+              <Typography sx={{ mb: 3 }} variant="h4" fontWeight="bold">
+                Setting
+              </Typography>
+              <form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <Card>
-                  <CardHeader
-                    subheader="Update password"
-                    title="Password"
-                  />
+                  <CardHeader subheader="Update password" title="Password" />
 
                   <Divider />
                   <CardContent>
-                    <Grid
-                      container
-                      spacing={3}
-                    >  <Grid
-                      item
-                      md={12}
-                      xs={12}
-                    >
-
+                    <Grid container spacing={3}>
+                      {" "}
+                      <Grid item md={12} xs={12}>
                         <TextField
                           fullWidth
                           label="Password"
                           name="password"
                           type="password"
                           onChange={handlePassword}
-
                           defaultValue={riderInfo?.password}
                           variant="outlined"
                           required
                         />
                         <TextField
-                          fullWidth margin='normal'
+                          fullWidth
+                          margin="normal"
                           label="Confirm password"
                           name="confirmPassword"
                           type="password"
@@ -119,23 +115,18 @@ const RiderSetting = () => {
                           required
                           variant="outlined"
                         />
-
                       </Grid>
-
                     </Grid>
                   </CardContent>
                   <Divider />
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'flex-end',
-                      p: 2
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      p: 2,
                     }}
                   >
-                    <Button type='submit'
-                      color="primary"
-                      variant="contained"
-                    >
+                    <Button type="submit" color="primary" variant="contained">
                       Update
                     </Button>
                   </Box>

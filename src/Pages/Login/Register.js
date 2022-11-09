@@ -33,7 +33,7 @@ const Register = () => {
 
   return (
     <div className="login">
-      <title>IMan Xpress || General register</title> 
+      <title>IMan Xpress || General register</title>
       <Container>
         <Grid
           container
@@ -119,7 +119,7 @@ const Register = () => {
                   </Box>
                   <Typography sx={{ mt: 2 }}>
                     Already have an Account?{" "}
-                    <Link  to="/login" style={{ color: "tomato" }}>
+                    <Link to="/login" style={{ color: "tomato" }}>
                       Login
                     </Link>
                   </Typography>

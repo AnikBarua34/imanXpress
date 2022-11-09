@@ -13,20 +13,19 @@
 // import { useForm } from "react-hook-form";
 // import axios from "axios";
 
-
 // const steps = ["Create Account", "Create Store", "Verify ID"];
 
 // function Merchant() {
 //   const [activeStep, setActiveStep] = React.useState(0);
-  
+
 //   const { register, handleSubmit, watch, formState: { errors } } = useForm();
 //   const onSubmit = data =>
 //   // post merchant registration data
-//   {axios.post('https://iman-xpress.herokuapp.com/api/auth/register',data).then(res=>console.log(res))
+//   {axios.post('http://localhost:8080/api/auth/register',data).then(res=>console.log(res))
 //     console.log(data)};
 
 //   const handleNext = () => {
-//     setActiveStep((prevActiveStep) => prevActiveStep + 1);  
+//     setActiveStep((prevActiveStep) => prevActiveStep + 1);
 
 //   };
 
@@ -50,7 +49,7 @@
 //           pb: 5,
 //         }}
 //       >
-//         <Box> 
+//         <Box>
 //           <Box sx={{ py: 5 }}>
 //         <Box>
 //           <Box sx={{ py: 5,textAlign:"center" }}>
@@ -106,7 +105,7 @@
 //                   Submit for Verification
 //                 </Button>
 //               </Box>
-              
+
 //             </React.Fragment>
 //           )}
 //           {activeStep === steps.length - 3 && (
@@ -129,10 +128,10 @@
 //                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
 //                 </Button>
 //               </Box>
-             
+
 //             </React.Fragment>
 //           )}
-         
+
 //           {activeStep === steps.length - 2 && (
 //             <React.Fragment>
 //               <Box>
@@ -158,7 +157,7 @@
 //           )}</form>
 //         </Box>
 //       </Container>
-      
+
 //     </Box>
 //   );
 // }

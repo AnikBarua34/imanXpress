@@ -1,4 +1,4 @@
-import React, { useEffect ,useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -10,9 +10,7 @@ import {
   signOut,
 } from "firebase/auth";
 
-import initAuth from '../Pages/Login/firebase.init'
-
-
+import initAuth from "../Pages/Login/firebase.init";
 
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -20,21 +18,18 @@ initAuth();
 const useFirebase = () => {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({});
   const [isloading, setIsloading] = useState(true);
   const [loginstatus, setLoginstatus] = useState(0);
-  const [darkMode,setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
- 
   ///user state observer
   useEffect(() => {
-    
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in
-      //  console.log(user.email);
-        setUser(user)
-
+        //  console.log(user.email);
+        setUser(user);
       } else {
         // User is signed out
       }
@@ -57,11 +52,10 @@ const useFirebase = () => {
   };
   ///new User register
   const registerUser = (email, password, name) => {
-    setIsloading(true) 
+    setIsloading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-
-        saveuser(email,password)
+        saveuser(email, password);
         // Signed in
         const user = userCredential.user;
         // ...
@@ -74,39 +68,36 @@ const useFirebase = () => {
       })
       .catch((error) => {
         // ..
-      }).finally(() => {
-       
+      })
+      .finally(() => {
         setIsloading(false);
-
-      });;
+      });
   };
 
   ///login user
   const userLogin = (email, password, redirect, navigate) => {
-    setIsloading(true)
+    setIsloading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         navigate(redirect);
         if (user?.email) {
-         
           Swal.fire({
-            icon: 'success',
-            title: 'User Login Successfully',
+            icon: "success",
+            title: "User Login Successfully",
           });
-          
-       
         }
       })
-      .catch((error) => { }).finally(() => setIsloading(false));;
+      .catch((error) => {})
+      .finally(() => setIsloading(false));
   };
   ///logOUt
   const logOut = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        setUser({})
+        setUser({});
       })
       .catch((error) => {
         // An error happened.
@@ -141,43 +132,37 @@ const useFirebase = () => {
     const userdata = {
       email: email,
       password: password,
-      role: "viewer"
-    }
-    fetch("https://iman-xpress.herokuapp.com/api/authgeneral/saveuser", {
+      role: "viewer",
+    };
+    // fetch("http://localhost:8080/api/authgeneral/saveuser", {
+    fetch("http://localhost:8080/api/authgeneral/saveuser", {
+      // https://iman-xpress.herokuapp.com
       method: "POST",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      body: JSON.stringify(userdata)
-    }).then(res => res.json()).then(data => console.log(data))
-  }
-/**user save in database end */
-
-
+      body: JSON.stringify(userdata),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+  /**user save in database end */
 
   useEffect(() => {
-    setIsloading(true)
+    setIsloading(true);
     const unsubscribed = onAuthStateChanged(auth, (user) => {
       if (user) {
-
-        setUser(user)
+        setUser(user);
       } else {
-        setUser({})
+        setUser({});
       }
 
-      setIsloading(false)
+      setIsloading(false);
     });
     return unsubscribed;
-  }
-    , []);
+  }, []);
 
-
-
-
-
-  
   return {
-   
     loginstatus,
     setLoginstatus,
     isloading,
@@ -188,7 +173,7 @@ const useFirebase = () => {
     logOut,
     user,
     setDarkMode,
-    darkMode
+    darkMode,
   };
 };
 

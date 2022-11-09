@@ -5,12 +5,7 @@ import React from "react";
 import { BsLinkedin, BsWhatsapp } from "react-icons/bs";
 import { FaGithub } from "react-icons/fa";
 import { SiFacebook } from "react-icons/si";
-import pic1 from "../../img/about-us-delivery.jpg";
 import anik from "../../img/anik.jpg";
-import imtiaz from "../../img/imtiaz.jpg";
-import pic2 from "../../img/our-mission.jpg";
-import proloy from "../../img/proloy.png";
-import tushar from "../../img/tushar.jpg";
 import Footer from "../../Shared/Footer/Footer";
 import Navbar from "../../Shared/Navbar/Navbar";
 import "./AboutUs.css";
@@ -45,10 +40,10 @@ const AboutUs = () => {
               About us
             </Typography>
             <Typography variant="p">
-              Iman Xpress is a Delivery system website. We care about our
-              customers. Customers satisfaction is our best target. We will also
-              work to save cusmores money,so we have some planes to keep many
-              kind of discount offers in our system.
+              Iman Xpress is a Store and Delivery system website. We care about
+              our customers. Customers satisfaction is our best target. We will
+              also work to save cusmores money,so we have some planes to keep
+              many kind of discount offers in our system.
             </Typography>
           </Grid>
         </Grid>
@@ -158,7 +153,7 @@ const AboutUs = () => {
               <CardMedia
                 component="img"
                 height="340"
-                image={tushar}
+                image={anik}
                 alt="about-us-delivery"
               />
               <Typography sx={{ fontWeight: "bold" }} variant="h6">

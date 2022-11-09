@@ -1,6 +1,18 @@
-.TotalOrder{
-    margin-top: 30px;
+.TotalOrder {
+  margin-top: 30px;
 }
-.table{
-    text-align: center;
+.table {
+  text-align: center;
+}
+.processing {
+  background-color: darkred;
+  font-size: 17px;
+  font-weight: 700;
+  color: white;
+}
+.pickedUp {
+  background-color: green;
+  font-size: 17px;
+  font-weight: 700;
+  color: yellow;
 }

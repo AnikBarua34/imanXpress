@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MessengerCustomerChat from "react-messenger-customer-chat";
+// import MessengerCustomerChat from "react-messenger-customer-chat";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BlogsHome from "./Component/Blogs/BlogsHome/BlogsHome";
 import BlogDetails from "./Component/Blogs/BlogDetails/BlogDetails";
@@ -43,6 +43,7 @@ import AllUser from "./DashBoard/DashboardHome/AllUser/AllUser";
 import AllMarchent from "./DashBoard/DashboardHome/AllMarchent/AllMarchent";
 import AllAdmin from "./DashBoard/DashboardHome/AllAdmin/AllAdmin";
 import PrivateLogin from "./Privateroute/PrivateLogin";
+import AllridersInDashboard from "./DashBoard/Dashboard/Dashboardhome/AllridersInDashboard";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -148,6 +149,14 @@ function App() {
                 element={
                   <PrivateRoute>
                     <MyOrder />
+                  </PrivateRoute>
+                }
+              ></Route>
+              <Route
+                path="/dashboard/findAllriders"
+                element={
+                  <PrivateRoute>
+                    <AllridersInDashboard />
                   </PrivateRoute>
                 }
               ></Route>
@@ -295,12 +304,12 @@ function App() {
         </Router>
       </Authprovider>
 
-      <MessengerCustomerChat
+      {/* <MessengerCustomerChat
         pageId="trippleview"
         appId="781030722958039"
         // pageId="101209389196237"
         // appId="292099619137695"
-      />
+      /> */}
     </div>
   );
 }

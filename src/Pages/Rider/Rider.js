@@ -1,16 +1,9 @@
 import {
   Alert,
   Button,
-  Checkbox,
   Container,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
   Grid,
   Paper,
-  Radio,
-  RadioGroup,
   TextField,
   Typography,
 } from "@mui/material";
@@ -24,23 +17,22 @@ import Swal from "sweetalert2";
 
 const states = [
   {
-    value: 'bikeRider',
-    label: 'Bike Rider'
+    value: "bikeRider",
+    label: "Bike Rider",
   },
   {
-    value: 'foodDelivery',
-    label: 'Food Delivery'
+    value: "foodDelivery",
+    label: "Food Delivery",
   },
   {
-    value: 'medicineDelivery',
-    label: 'Medicine Delivery'
+    value: "medicineDelivery",
+    label: "Medicine Delivery",
   },
   {
-    value: 'parcelDelivery',
-    label: 'Parcel Delivery'
+    value: "parcelDelivery",
+    label: "Parcel Delivery",
   },
 ];
-
 
 const RiderRegistration = () => {
   const [error, setError] = useState(false);
@@ -50,36 +42,38 @@ const RiderRegistration = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    axios.post('https://iman-xpress.herokuapp.com/api/authRider/register', data).then(res => {
-        console.log(res)
+    axios
+      // .post("http://localhost:8080/api/authRider/register", data)
+      .post("http://localhost:8080/api/authRider/register", data)
+      .then((res) => {
+        console.log(res);
         if (res.data.authToken) {
           Swal.fire({
-            icon: 'success',
-            title: 'Rider Registered Successfully',
+            icon: "success",
+            title: "Rider Registered Successfully",
           });
         }
-        }).catch(err=>console.log(err))
+      })
+      .catch((err) => console.log(err));
   };
-  
-
 
   // handle rider state
   const handleState = (event) => {
     setValues({
       ...values,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
   return (
     <div className="login">
-      <title>IMan Xpress || Rider register</title> 
+      <title>IMan Xpress || Rider register</title>
       <Container
         sx={{
           height: "100vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          paddingTop:"60px"
+          paddingTop: "60px",
         }}
       >
         <Box>
@@ -144,44 +138,41 @@ const RiderRegistration = () => {
                       variant="outlined"
                       {...register("address")}
                     />
-                     <TextField
-                  required
-                  label="Email"
-                  type="email"
-                  sx={{ mt: 2, width: "100%" }}
-                  variant="outlined"
-                  {...register("email")}
-              />
-              <TextField
-                  required
-                  label="Password"
-                  type="password"
-                  sx={{ my: 2, width: "100%" }}
-                  variant="outlined"
-                  {...register("password")}
-              />
-                    <Box sx={{ display:'flex', mt: 2 }}>
                     <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleState}
-                              required
-                              {...register("riderState")}
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
+                      required
+                      label="Email"
+                      type="email"
+                      sx={{ mt: 2, width: "100%" }}
+                      variant="outlined"
+                      {...register("email")}
+                    />
+                    <TextField
+                      required
+                      label="Password"
+                      type="password"
+                      sx={{ my: 2, width: "100%" }}
+                      variant="outlined"
+                      {...register("password")}
+                    />
+                    <Box sx={{ display: "flex", mt: 2 }}>
+                      <TextField
+                        fullWidth
+                        label="Select State"
+                        name="state"
+                        onChange={handleState}
+                        required
+                        {...register("riderState")}
+                        select
+                        SelectProps={{ native: true }}
+                        value={values.state}
+                        variant="outlined"
+                      >
+                        {states.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </TextField>
                     </Box>
                   </Box>{" "}
                   <Box sx={{ mt: 4 }}>
@@ -189,22 +180,18 @@ const RiderRegistration = () => {
                       Register
                     </Button>
                   </Box>
-                  
-                 
                 </form>
-                <Box sx={{ mt: 1,display:"flex" }}>
-                  <Button variant="outlined" color="warning" >
-                    <Link to="/login" style={{textDecoration:"none"}}>
+                <Box sx={{ mt: 1, display: "flex" }}>
+                  <Button variant="outlined" color="warning">
+                    <Link to="/login" style={{ textDecoration: "none" }}>
                       Login
                     </Link>
-                   
                   </Button>
 
-                  <Button variant="outlined" color="warning" >
+                  <Button variant="outlined" color="warning">
                     <Link to="/" style={{ textDecoration: "none" }}>
                       Back
                     </Link>
-
                   </Button>
                 </Box>
                 <Typography color="gray" variant="subtitle">

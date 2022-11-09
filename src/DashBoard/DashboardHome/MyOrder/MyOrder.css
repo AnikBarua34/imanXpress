@@ -1,23 +1,28 @@
-.thead{
-    background-color: rgba(19, 1, 1, 0.842);
-    color: white;
-    margin-top: 20px;
-    margin-bottom: 10px; 
- }
- .tableData Td{ 
-    border: 1px solid black;
-    margin-bottom: 10px; 
- }
- .TotalOrder{
-   margin-top: 30px;
- }
+.thead {
+  background-color: rgba(19, 1, 1, 0.842);
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 18px;
+}
+.tableData Td {
+  border: 1px solid black;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+.TotalOrder {
+  margin-top: 30px;
+}
 
- .success{
-    color:white;
-    background-color:green;
- }
+.success {
+  background-color: green;
+  font-size: 17px;
+  font-weight: 700;
+  color: yellow;
+}
 
- .pending{
-    color:black ;
-    background-color: rgb(255, 166, 0);
- }
+.pending {
+  background-color: darkred;
+  font-size: 17px;
+  font-weight: 700;
+  color: white;
+}

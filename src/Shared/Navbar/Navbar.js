@@ -1,4 +1,3 @@
-
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
@@ -11,11 +10,11 @@ import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import React from "react";
-import useAuth from '../../Hooks/useAuth'
+import useAuth from "../../Hooks/useAuth";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 import styles from "./Navbar.module.css";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 // {setDarkMode, darkMode}
 
@@ -40,65 +39,57 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-
   const merchant = localStorage.getItem("merchant");
   const merchantinfo = JSON.parse(localStorage.getItem("merchantInfo"));
 
   const rider = localStorage.getItem("riderToken");
   const riderinfo = JSON.parse(localStorage.getItem("riderInfo"));
 
-
-
   const merchantlogout = () => {
-    let confirmmessage = window.confirm("are you sure you want to logout")
+    let confirmmessage = window.confirm("are you sure you want to logout");
     if (confirmmessage === true) {
       localStorage.removeItem("merchant");
       localStorage.removeItem("merchantInfo");
-      navigate("/")
+      navigate("/");
     }
-
-  }
+  };
 
   const riderlogout = () => {
-    let confirmmessage = window.confirm("are you sure you want to logout")
+    let confirmmessage = window.confirm("are you sure you want to logout");
     if (confirmmessage === true) {
-      axios.put(`https://iman-xpress.herokuapp.com/api/authRider/updateloginstatuswhenlogout/${riderinfo.email}`)
-        .then(res => {
+      axios
+        .put(
+          `http://localhost:8080/api/authRider/updateloginstatuswhenlogout/${riderinfo.email}`
+        )
+        .then((res) => {
           console.log(res.change);
-          setLoginstatus(0)
-
-        }).catch(err => console.log(err))
+          setLoginstatus(0);
+        })
+        .catch((err) => console.log(err));
       localStorage.removeItem("riderToken");
       localStorage.removeItem("riderInfo");
-      navigate("/")
+      navigate("/");
     }
-  }
+  };
   const generallogout = () => {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You will be log Out from this page!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Log me Out!'
-      })
-      .then((result) => {
-        if (result.isConfirmed == true) {
-        Swal.fire(
-            'Logged Out successfully!',
-          )
-          logOut();         
-        }
-        else{
-            Swal.fire('Wow, You are still logged in!'
-              )
-        }
-      })  
-      navigate("/")
-
-      
-  }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be log Out from this page!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Log me Out!",
+    }).then((result) => {
+      if (result.isConfirmed == true) {
+        Swal.fire("Logged Out successfully!");
+        logOut();
+      } else {
+        Swal.fire("Wow, You are still logged in!");
+      }
+    });
+    navigate("/");
+  };
   return (
     <AppBar position="sticky" sx={{ boxShadow: 0 }} className={styles.navbar}>
       <Container maxWidth="xl">
@@ -147,11 +138,9 @@ const Navbar = () => {
                 onClick={handleCloseNavMenu}
                 style={{ width: "200px" }}
               >
-
                 <Link to="/" style={{ textDecoration: "none", color: "black" }}>
                   Home
                 </Link>
-
               </MenuItem>
 
               <MenuItem
@@ -172,13 +161,14 @@ const Navbar = () => {
                 onClick={handleCloseNavMenu}
                 style={{ width: "200px" }}
               >
-
-                <Link to="/aboutus" style={{ textDecoration: "none", color: "black" }}>
+                <Link
+                  to="/aboutus"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
                   About us
                 </Link>
-
               </MenuItem>
-              
+
               {/* <MenuItem
                 key="1"
                 onClick={handleCloseNavMenu}
@@ -189,46 +179,72 @@ const Navbar = () => {
                 </Link>
               </MenuItem> */}
 
-              {
-                user?.email ? <MenuItem
+              {user?.email ? (
+                <MenuItem
                   key="1"
                   onClick={handleCloseNavMenu}
                   style={{ width: "200px" }}
                 >
-                  <Link to="/allriders" style={{ textDecoration: "none", color: "black" }}>
+                  <Link
+                    to="/allriders"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
                     All Riders
                   </Link>
-                </MenuItem> : ""
-              }
+                </MenuItem>
+              ) : (
+                ""
+              )}
 
-              {
-                riderinfo !== null ? <MenuItem
+              {riderinfo !== null ? (
+                <MenuItem
                   key="1"
                   onClick={handleCloseNavMenu}
                   style={{ width: "200px" }}
                 >
-                  <Link to="/allusers" style={{ textDecoration: "none", color: "black" }}>
+                  <Link
+                    to="/allusers"
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
                     All Users
                   </Link>
-                </MenuItem> : ""
-
-              }
+                </MenuItem>
+              ) : (
+                ""
+              )}
 
               <MenuItem
                 key="1"
                 onClick={handleCloseNavMenu}
                 style={{ width: "200px" }}
               >
-                <Link to="/dashboard" style={{ textDecoration: "none", color: "black" }}>
+                <Link
+                  to="/dashboard"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
                   Dashboard
                 </Link>
               </MenuItem>
 
-              {
-              darkMode ?
-                <Button onClick={() => setDarkMode(false)}> <img width="30px" src="https://cdn-icons-png.flaticon.com/512/2698/2698240.png" alt="" /> </Button>
-                : <Button onClick={() => setDarkMode(true)}> <img width="25px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE__9cG2hIsEGrj00DafUu41vOvBP0-GaNiAqKrfBxMMIesxKnSnanaah9olAEjOHtRRs&usqp=CAU"  alt="" /> </Button>
-            }
+              {darkMode ? (
+                <Button onClick={() => setDarkMode(false)}>
+                  {" "}
+                  <img
+                    width="30px"
+                    src="https://cdn-icons-png.flaticon.com/512/2698/2698240.png"
+                    alt=""
+                  />{" "}
+                </Button>
+              ) : (
+                <Button onClick={() => setDarkMode(true)}>
+                  {" "}
+                  <img
+                    width="25px"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE__9cG2hIsEGrj00DafUu41vOvBP0-GaNiAqKrfBxMMIesxKnSnanaah9olAEjOHtRRs&usqp=CAU"
+                    alt=""
+                  />{" "}
+                </Button>
+              )}
             </Menu>
           </Box>
           <Typography
@@ -240,8 +256,11 @@ const Navbar = () => {
               display: { xs: "flex", md: "none", color: "black" },
             }}
           >
-
-            <img src="https://i.postimg.cc/Vvdv93dn/imanimage.png" alt="" width="150px" />
+            <img
+              src="https://i.postimg.cc/Vvdv93dn/imanimage.png"
+              alt=""
+              width="150px"
+            />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
@@ -271,9 +290,10 @@ const Navbar = () => {
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "black", display: "block" }}
             >
-              <Link to="/dashboard/home" style={{ textDecoration: "none" }}>Dashboard</Link>
+              <Link to="/dashboard/home" style={{ textDecoration: "none" }}>
+                Dashboard
+              </Link>
             </Button>
-
 
             {/* contact us added  */}
 
@@ -296,9 +316,9 @@ const Navbar = () => {
                 About Us
               </Button>
             </Link>
-            
-            {
-              user?.email ? <Link to="/allriders" style={{ textDecoration: "none" }}>
+
+            {user?.email ? (
+              <Link to="/allriders" style={{ textDecoration: "none" }}>
                 <Button
                   style={{ textDecoration: "none" }}
                   key="6"
@@ -306,10 +326,12 @@ const Navbar = () => {
                 >
                   All Riders
                 </Button>
-              </Link> : ""
-            }
-            {
-              riderinfo !== null ? <Link to="/allusers" style={{ textDecoration: "none" }}>
+              </Link>
+            ) : (
+              ""
+            )}
+            {riderinfo !== null ? (
+              <Link to="/allusers" style={{ textDecoration: "none" }}>
                 <Button
                   style={{ textDecoration: "none" }}
                   key="6"
@@ -317,15 +339,31 @@ const Navbar = () => {
                 >
                   All Users
                 </Button>
-              </Link> : ""
-            }
+              </Link>
+            ) : (
+              ""
+            )}
 
-            {
-              darkMode ?
-                <Button onClick={() => setDarkMode(false)}> <img width="30px" src="https://cdn-icons-png.flaticon.com/512/2698/2698240.png" alt="" /> </Button>
-                : <Button onClick={() => setDarkMode(true)}> <img width="25px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE__9cG2hIsEGrj00DafUu41vOvBP0-GaNiAqKrfBxMMIesxKnSnanaah9olAEjOHtRRs&usqp=CAU"  alt="" /> </Button>
-            }
-            
+            {darkMode ? (
+              <Button onClick={() => setDarkMode(false)}>
+                {" "}
+                <img
+                  width="30px"
+                  src="https://cdn-icons-png.flaticon.com/512/2698/2698240.png"
+                  alt=""
+                />{" "}
+              </Button>
+            ) : (
+              <Button onClick={() => setDarkMode(true)}>
+                {" "}
+                <img
+                  width="25px"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE__9cG2hIsEGrj00DafUu41vOvBP0-GaNiAqKrfBxMMIesxKnSnanaah9olAEjOHtRRs&usqp=CAU"
+                  alt=""
+                />{" "}
+              </Button>
+            )}
+
             {/* <Button>
               <a style={{ textDecoration: "none" }} href="https://imanxpress.netlify.app/">
                 Chat with Rider
@@ -333,49 +371,38 @@ const Navbar = () => {
             </Button>
              */}
           </Box>
-          {
-            user?.email && merchant === null && rider === null ?
-              <h4 style={{ color: "black", marginTop: "13px" }}>{user?.displayName}</h4>
-              : !user.email && rider === null && merchant ?
-                <h4 style={{ color: "black", marginTop: "13px" }}>{merchantinfo?.name}</h4>
-                : !user.email && merchant == null && rider ?
-                  <h4 style={{ color: "black", marginTop: "13px" }}>{riderinfo?.lname}</h4>
-                  : <Button> <Link style={{ textDecoration: "none" }} to="/login">
-                    Log in
-                  </Link>
-                  </Button>
-
-          }
-
-          {/* <Button> <Link style={{ textDecoration: "none" }} to="/login">
-            Log in
-          </Link>
-          </Button>
-
-          {/* {
-            rider ? <h2 style={{ color: "red" }}>{riderinfo.name}</h2> :
-              <Button>
-                <Link to="/login">
-                  Log in
-                </Link>
-              </Button>
-          } */}
-
-
+          {user?.email && merchant === null && rider === null ? (
+            <h4 style={{ color: "black", marginTop: "13px" }}>
+              {user?.displayName}
+            </h4>
+          ) : !user.email && rider === null && merchant ? (
+            <h4 style={{ color: "black", marginTop: "13px" }}>
+              {merchantinfo?.name}
+            </h4>
+          ) : !user.email && merchant == null && rider ? (
+            <h4 style={{ color: "black", marginTop: "13px" }}>
+              {riderinfo?.lname}
+            </h4>
+          ) : (
+            <Button>
+              {" "}
+              <Link style={{ textDecoration: "none" }} to="/login">
+                Log in
+              </Link>
+            </Button>
+          )}
           <Button
             onClick={handleOpenUserMenu}
             key="5"
             sx={{ my: 2, color: "black", display: "block" }}
           >
-            {user?.email || merchant  || rider?"Logout":"Signup"}
-            
+            {user?.email || merchant || rider ? "Logout" : "Signup"}
+
             <IconButton sx={{ p: 0 }}>
               <ArrowDropDownIcon />
             </IconButton>
-
           </Button>
           <Box sx={{ flexGrow: 0 }}>
-
             <Menu
               style={{ marginTop: "45px" }}
               id="menu-appbar"
@@ -392,73 +419,69 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {
-                user.email && merchant == null ? <MenuItem
-
+              {user.email && merchant == null ? (
+                <MenuItem
                   onClick={handleCloseUserMenu}
                   style={{ width: "200px" }}
                 >
-
                   <Button onClick={generallogout}>Logout</Button>
-
-
-                </MenuItem> : !user.email && merchant ? <MenuItem
-
+                </MenuItem>
+              ) : !user.email && merchant ? (
+                <MenuItem
                   onClick={handleCloseUserMenu}
                   style={{ width: "200px" }}
                 >
-
                   <Button onClick={merchantlogout}>Merchant logout</Button>
-
-
-                </MenuItem> : !user.email && merchant == null && rider ? <MenuItem
-
+                </MenuItem>
+              ) : !user.email && merchant == null && rider ? (
+                <MenuItem
                   onClick={handleCloseUserMenu}
                   style={{ width: "200px" }}
                 >
-
                   <Button onClick={riderlogout}>Rider logout</Button>
+                </MenuItem>
+              ) : (
+                <>
+                  <MenuItem
+                    onClick={handleCloseUserMenu}
+                    style={{ width: "200px" }}
+                  >
+                    <Link to="/register" style={{ textDecoration: "none" }}>
+                      <Typography textAlign="center">
+                        General account
+                      </Typography>
+                    </Link>
+                  </MenuItem>
 
-
-                </MenuItem> :
-                  <>
+                  <Link
+                    to="/merchantRegister"
+                    style={{ textDecoration: "none" }}
+                  >
+                    {" "}
                     <MenuItem
-
                       onClick={handleCloseUserMenu}
                       style={{ width: "200px" }}
                     >
-
-                      <Link to="/register" style={{textDecoration:"none"}}><Typography textAlign="center">General account</Typography></Link>
-
-
-                    </MenuItem>
-
-                    <Link to="/merchantRegister" style={{textDecoration:"none"}}> <MenuItem
-
-                      onClick={handleCloseUserMenu}
-                      style={{ width: "200px" }}
-                    >
-
-                      <Typography textAlign="center">Merchant account</Typography>
+                      <Typography textAlign="center">
+                        Merchant account
+                      </Typography>
                       {/* <Button onClick={merchantlogout}>Merchant logout</Button> */}
-
-
-                    </MenuItem></Link>
-
-                    <MenuItem
-
-                      onClick={handleCloseUserMenu}
-                      style={{ width: "200px" }}
-                    >
-                          <Link to="/riderRegister" style={{ textDecoration: "none" }}><Typography textAlign="center">Rider account</Typography></Link>
                     </MenuItem>
-                  </>
-              }
+                  </Link>
 
-
-
-
-
+                  <MenuItem
+                    onClick={handleCloseUserMenu}
+                    style={{ width: "200px" }}
+                  >
+                    <Link
+                      to="/riderRegister"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Typography textAlign="center">Rider account</Typography>
+                    </Link>
+                  </MenuItem>
+                </>
+              )}
             </Menu>
           </Box>
         </Toolbar>

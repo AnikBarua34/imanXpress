@@ -24,14 +24,12 @@ import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useFirebase from "../../Hooks/useFirebase";
 
-
-
 const Login = () => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const { googleLogin, userLogin,user } = useFirebase();
+  const { googleLogin, userLogin, user } = useFirebase();
   const { register, handleSubmit, reset } = useForm();
-  const {setLoginstatus} = useAuth();
+  const { setLoginstatus } = useAuth();
   const merchant = localStorage.getItem("merchant");
   const rider = localStorage.getItem("riderToken");
 
@@ -51,100 +49,105 @@ const Login = () => {
     const email = data.email;
     const password = data.password;
     try {
-      if (data.merchant === 'merchant') {
+      if (data.merchant === "merchant") {
+        axios
+          .post("http://localhost:8080/api/auth/login", data)
+          .then((res) => {
+            console.log("res", res);
+            if (res.data.authToken) {
+              const merchantToken = res.data.authToken;
+              localStorage.setItem("merchant", merchantToken);
 
-        axios.post('https://iman-xpress.herokuapp.com/api/auth/login', data).then(res => {
-          console.log("res", res)
-          if (res.data.authToken) {
-            const merchantToken = res.data.authToken
-            localStorage.setItem("merchant", merchantToken);
-
-
-            // rider info fetch from database
-            axios.post('https://iman-xpress.herokuapp.com/api/auth/getmerchantuser', { hello: 'world' },
-              {
-                headers: {
-                  "auth-token": merchantToken,
-                  "Content-Type": "application/json"
-                }
-              }).then(res => {
-                setSuccess(true)
-                console.log("res", res.data);
-                const merchantInfo = JSON.stringify(res.data)
-                console.log(merchantInfo)
-                localStorage.setItem("merchantInfo", merchantInfo);
-              }
-            ).catch(err => {
-              setError(true);
-              console.log(err)
-            })
-            Swal.fire({
-              icon: 'success',
-              title: 'Merchant Login Successfully',
-            });
-            navigate(redirect)
-
-          }
-        }
-
-        ).catch(err => console.log(err))
-      }
-      if (data.rider === 'rider') {
-
-        // rider login 
-        console.log(data.email);
-        axios.post('https://iman-xpress.herokuapp.com/api/authRider/login', data).then(res => {
-          console.log("res", res.data);
-          if (res.data.authToken) {
-            const riderToken = res.data.authToken
-            localStorage.setItem("riderToken", riderToken);
-
-            // rider info fetch from database
-            axios.post('https://iman-xpress.herokuapp.com/api/authRider/getRider', { rider: 'Ok' }, {
-              headers: {
-                "Authorization": riderToken,
-                "Content-Type": "application/json"
-              }
-            }).then(res => {
-              console.log(res.status)
-              if (res.status === 200) {
-                
-                
-                 axios.put(`https://iman-xpress.herokuapp.com/api/authRider/updateloginstatus/${data.email}`)
-                    .then(res => {
-                      console.log(res.change);
-                      setLoginstatus(1)
-                    }).catch(err => console.log(err))
-               
-              
-              }
-              setSuccess(true)
-              console.log("res", res.data);
-              const riderInfo = JSON.stringify(res.data)
-              localStorage.setItem("riderInfo", riderInfo);
+              // rider info fetch from database
+              axios
+                .post(
+                  "http://localhost:8080/api/auth/getmerchantuser",
+                  { hello: "world" },
+                  {
+                    headers: {
+                      "auth-token": merchantToken,
+                      "Content-Type": "application/json",
+                    },
+                  }
+                )
+                .then((res) => {
+                  setSuccess(true);
+                  console.log("res", res.data);
+                  const merchantInfo = JSON.stringify(res.data);
+                  console.log(merchantInfo);
+                  localStorage.setItem("merchantInfo", merchantInfo);
+                })
+                .catch((err) => {
+                  setError(true);
+                  console.log(err);
+                });
+              Swal.fire({
+                icon: "success",
+                title: "Merchant Login Successfully",
+              });
+              navigate(redirect);
             }
-            ).catch(err => console.log(err))
-            setError(true);
-
-            Swal.fire({
-              icon: 'success',
-              title: 'Rider Login Successfully',
-            });
-            navigate(redirect)
-          }
-        }
-
-        ).catch(err => console.log(err))
-
+          })
+          .catch((err) => console.log(err));
       }
-      if (data.user === 'user') {
-        userLogin(email, password, redirect, navigate)       
-        
+      if (data.rider === "rider") {
+        // rider login
+        console.log(data.email);
+        axios
+          .post("http://localhost:8080/api/authRider/login", data)
+          .then((res) => {
+            console.log("res", res.data);
+            if (res.data.authToken) {
+              const riderToken = res.data.authToken;
+              localStorage.setItem("riderToken", riderToken);
+
+              // rider info fetch from database
+              axios
+                .post(
+                  "http://localhost:8080/api/authRider/getRider",
+                  { rider: "Ok" },
+                  {
+                    headers: {
+                      Authorization: riderToken,
+                      "Content-Type": "application/json",
+                    },
+                  }
+                )
+                .then((res) => {
+                  console.log(res.status);
+                  if (res.status === 200) {
+                    axios
+                      .put(
+                        `http://localhost:8080/api/authRider/updateloginstatus/${data.email}`
+                      )
+                      .then((res) => {
+                        console.log(res.change);
+                        setLoginstatus(1);
+                      })
+                      .catch((err) => console.log(err));
+                  }
+                  setSuccess(true);
+                  console.log("res", res.data);
+                  const riderInfo = JSON.stringify(res.data);
+                  localStorage.setItem("riderInfo", riderInfo);
+                })
+                .catch((err) => console.log(err));
+              setError(true);
+
+              Swal.fire({
+                icon: "success",
+                title: "Rider Login Successfully",
+              });
+              navigate(redirect);
+            }
+          })
+          .catch((err) => console.log(err));
       }
-      
+      if (data.user === "user") {
+        userLogin(email, password, redirect, navigate);
+      }
     } catch {
       // setError(true);
-
     }
 
     reset();
@@ -158,7 +161,7 @@ const Login = () => {
 
   return (
     <div className="login">
-      <title>IMan Xpress || Login</title> 
+      <title>IMan Xpress || Login</title>
       <Container
         sx={{
           height: "100vh",
@@ -174,15 +177,24 @@ const Login = () => {
             justifyContent: "center",
           }}
         >
-          {user?.email || merchant || rider ? 
+          {user?.email || merchant || rider ? (
             <Grid>
               <Typography variant="h3">You are already loged in</Typography>
-              <br/>
+              <br />
               <Button variant="outlined">
-                <Link style={{ textDecoration: "none", fontSize: "25px", textAlign: "center" }} to="/">Click here</Link>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "25px",
+                    textAlign: "center",
+                  }}
+                  to="/"
+                >
+                  Click here
+                </Link>
               </Button>
-            
-            </Grid> :
+            </Grid>
+          ) : (
             <Grid item>
               <Paper sx={{ p: 5 }} elevation={3}>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -213,15 +225,15 @@ const Login = () => {
                       variant="outlined"
                       {...register("password")}
                     />
-                    <FormControl sx={{ textAlign: 'left' }}>
+                    <FormControl sx={{ textAlign: "left" }}>
                       {/* <FormLabel>Service(s) you want to provide</FormLabel> */}
                       <RadioGroup
                         name="user"
                         value={value}
                         onChange={handleChange}
-
                       >
-                        <Box required
+                        <Box
+                          required
                           sx={{
                             display: "flex",
                             justifyContent: "space-between",
@@ -269,7 +281,6 @@ const Login = () => {
                             }
                             label="User"
                           />
-
                         </Box>
                       </RadioGroup>
                     </FormControl>
@@ -325,10 +336,7 @@ const Login = () => {
                 )}
               </Paper>
             </Grid>
-        
-        }
-          
-         
+          )}
         </Grid>
       </Container>
     </div>
