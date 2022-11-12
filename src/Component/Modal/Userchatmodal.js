@@ -56,7 +56,9 @@ export default function Userchatmodal({
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/authgeneral/getuserdata/${user?.email}`)
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/authgeneral/getuserdata/${user?.email}`
+      )
       .then((res) => setUserdata(res.data))
       .catch((err) => console.log(err));
   }, []);

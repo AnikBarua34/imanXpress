@@ -23,6 +23,11 @@ import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FiUsers } from "react-icons/fi";
 import { BiCommentAdd } from "react-icons/bi";
 import { RiImageAddLine } from "react-icons/ri";
+import { RiPhoneFindLine } from "react-icons/ri";
+import { MdOutlineManageAccounts } from "react-icons/md";
+import { FiSettings } from "react-icons/fi";
+import { ImProfile } from "react-icons/im";
+import { VscGraphLine } from "react-icons/vsc";
 
 const drawerWidth = 220;
 
@@ -36,7 +41,9 @@ function Nav(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/authgeneral/getuserdata/${user.email}`)
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/authgeneral/getuserdata/${user.email}`
+      )
       .then((res) => setUservalue(res.data))
       .catch((err) => console.log(err));
   }, [user.email]);
@@ -60,7 +67,7 @@ function Nav(props) {
       <div className=" list_of_route">
         <List>
           <Link className="" to="/">
-            <span style={{ color: "#2979ff" }}>
+            <span style={{ fontSize: "30px", color: "#2979ff" }}>
               <HomeIcon />
             </span>
             Home
@@ -97,10 +104,10 @@ function Nav(props) {
               </List>
               <List>
                 <Link className="" to="/dashboard/marchant/manageorders">
-                  <span>
-                    <ClassIcon></ClassIcon>
+                  <span style={{ fontSize: "25px", color: "#2979ff" }}>
+                    <VscGraphLine />
                   </span>
-                  Manage Orders
+                  Track Orders
                 </Link>
               </List>
               <List>
@@ -119,39 +126,55 @@ function Nav(props) {
           {ridertoken ? (
             <>
               <List>
+                <Link className="" to="/dashboard/rider/findorder">
+                  <span style={{ fontSize: "25px", color: "#2979ff" }}>
+                    <RiPhoneFindLine />
+                  </span>{" "}
+                  Find a Order
+                </Link>
+              </List>
+              <List>
+                <Link className="" to="/dashboard/rider/findanAdmin">
+                  <span style={{ fontSize: "25px", color: "#2979ff" }}>
+                    <RiPhoneFindLine />
+                  </span>{" "}
+                  Find an Admin
+                </Link>
+              </List>
+              {/* <List>
                 <Link className="" to="/dashboard">
                   <span>
                     <ClassIcon></ClassIcon>
                   </span>{" "}
                   Rider profile
                 </Link>
-              </List>
+              </List> */}
               <List>
                 <Link className="" to="/dashboard/rider/profile">
-                  <span>
-                    <ClassIcon></ClassIcon>
+                  <span style={{ fontSize: "25px", color: "#2979ff" }}>
+                    <MdOutlineManageAccounts />
                   </span>{" "}
-                  profile manage
+                  Manage Profile
                 </Link>
               </List>
 
               <List>
                 <Link className="" to="/dashboard/rider/setting">
-                  <span>
-                    <ClassIcon></ClassIcon>
+                  <span style={{ fontSize: "25px", color: "#2979ff" }}>
+                    <FiSettings />
                   </span>{" "}
                   Settings
                 </Link>
               </List>
 
-              <List>
+              {/* <List>
                 <Link className="" to="/dashboard">
                   <span>
                     <ClassIcon></ClassIcon>
                   </span>{" "}
                   client message
                 </Link>
-              </List>
+              </List> */}
             </>
           ) : (
             ""
@@ -206,15 +229,16 @@ function Nav(props) {
                   </span>{" "}
                   All orders
                 </Link>
-                <List>
-                  <Link className="" to="/dashboard/findAllriders">
-                    <span>
-                      <ClassIcon></ClassIcon>
-                    </span>{" "}
-                    Find Riders
-                  </Link>
-                </List>
               </List>
+              <List>
+                <Link className="" to="/dashboard/findAllriders">
+                  <span style={{ fontSize: "25px", color: "#2979ff" }}>
+                    <ImProfile />
+                  </span>{" "}
+                  Find Riders
+                </Link>
+              </List>
+
               {/* make aadmin  */}
               <List>
                 <Link className="" to="/dashboard/alladmin">
@@ -333,11 +357,9 @@ function Nav(props) {
           </IconButton>
           <Box className="toolbar_box">
             {/* <img src={BD} className="img-fluid flag_img" alt="" /> */}
+            <IconButton sx={{ mr: 2 }}>{/* <GroupTwoToneIcon /> */}</IconButton>
             <IconButton sx={{ mr: 2 }}>
-              <GroupTwoToneIcon />
-            </IconButton>
-            <IconButton sx={{ mr: 2 }}>
-              <NotificationsNoneOutlinedIcon />
+              {/* <NotificationsNoneOutlinedIcon /> */}
             </IconButton>
             {/* <img
               src="https://bidinnovacion.org/economiacreativa/wp-content/uploads/2014/10/speaker-3.jpg"

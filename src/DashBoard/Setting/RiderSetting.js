@@ -34,7 +34,7 @@ const RiderSetting = () => {
     if (password.password === password.confirmPassword) {
       axios
         .post(
-          `http://localhost:8080/api/riderProfile/updateRiderPass/${riderInfo.email}`,
+          `https://limitless-sea-74898.herokuapp.com/api/riderProfile/updateRiderPass/${riderInfo.email}`,
           data
         )
         .then((res) => {

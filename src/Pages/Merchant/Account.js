@@ -43,7 +43,7 @@ function Account() {
     }
     data.image = imageURL;
     axios
-      .post("http://localhost:8080/api/auth/register", data)
+      .post("https://limitless-sea-74898.herokuapp.com/api/auth/register", data)
       .then((res) => {
         console.log(res.data.authToken);
         if (res.data.authToken) {

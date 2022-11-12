@@ -17,12 +17,15 @@ function Updatemerchantproduct() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/merchant/fetchproduct/${id}`, {
-        headers: {
-          "auth-token": mytoken,
-          "Content-Type": "application/json",
-        },
-      })
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/merchant/fetchproduct/${id}`,
+        {
+          headers: {
+            "auth-token": mytoken,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -59,12 +62,16 @@ function Updatemerchantproduct() {
 
     console.log(mydata);
     axios
-      .put(`http://localhost:8080/api/merchant/updateproduct/${id}`, mydata, {
-        headers: {
-          "auth-token": mytoken,
-          "Content-Type": "application/json",
-        },
-      })
+      .put(
+        `https://limitless-sea-74898.herokuapp.com/api/merchant/updateproduct/${id}`,
+        mydata,
+        {
+          headers: {
+            "auth-token": mytoken,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         navigate("/dashboard/marchant/manageproduct");

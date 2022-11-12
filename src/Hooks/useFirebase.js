@@ -134,15 +134,18 @@ const useFirebase = () => {
       password: password,
       role: "viewer",
     };
-    // fetch("http://localhost:8080/api/authgeneral/saveuser", {
-    fetch("http://localhost:8080/api/authgeneral/saveuser", {
-      // https://iman-xpress.herokuapp.com
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userdata),
-    })
+    // fetch("https://limitless-sea-74898.herokuapp.com/api/authgeneral/saveuser", {
+    fetch(
+      "https://limitless-sea-74898.herokuapp.com/api/authgeneral/saveuser",
+      {
+        // https://iman-xpress.herokuapp.com
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userdata),
+      }
+    )
       .then((res) => res.json())
       .then((data) => console.log(data));
   };

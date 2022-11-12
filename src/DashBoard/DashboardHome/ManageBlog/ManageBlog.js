@@ -8,7 +8,7 @@ const ManageBlog = () => {
   const [blogApi, setBlogApi] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/blog/fetchblog`, {
+      .get(`https://limitless-sea-74898.herokuapp.com/api/blog/fetchblog`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -24,11 +24,14 @@ const ManageBlog = () => {
     const confirmMsg = window.confirm("Would you like to delete this blog");
     if (confirmMsg) {
       axios
-        .delete(`http://localhost:8080/api/blog/deleteblog/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        .delete(
+          `https://limitless-sea-74898.herokuapp.com/api/blog/deleteblog/${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((res) => {
           console.log("deletedCount", res.data.deletedCount);
 

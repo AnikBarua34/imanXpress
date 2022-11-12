@@ -24,7 +24,7 @@ const AddPartner = () => {
 
     console.log(data);
 
-    const url = `http://localhost:8080/api/partner/addPartner`;
+    const url = `https://limitless-sea-74898.herokuapp.com/api/partner/addPartner`;
 
     axios
       .post(url, data, {

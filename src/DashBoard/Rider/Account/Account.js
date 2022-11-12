@@ -42,7 +42,7 @@ const Account = () => {
 
     await axios
       .post(
-        `http://localhost:8080/api/riderProfile/updateImage/${riderInfo?.email}`,
+        `https://limitless-sea-74898.herokuapp.com/api/riderProfile/updateImage/${riderInfo?.email}`,
         "image"
       )
       .then((res) => {

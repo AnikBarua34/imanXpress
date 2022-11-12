@@ -10,7 +10,9 @@ const MyOrder = () => {
   const { user } = useAuth();
   const [myOrders, setMyOrders] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8080/api/payNow/ordersbyemail/${user.email}`)
+    fetch(
+      `https://limitless-sea-74898.herokuapp.com/api/payNow/ordersbyemail/${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setMyOrders(data);

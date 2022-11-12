@@ -2,19 +2,30 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-import { Typography } from "@mui/material";
 import "./AllOrders.css";
 import axios from "axios";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import InputAdornment from "@mui/material/InputAdornment";
+import { FaSearch } from "react-icons/fa";
+import {
+  Box,
+  Button,
+  Container,
+  TextField,
+  Grid,
+  Paper,
+  Typography,
+} from "@mui/material";
 
-const AllOrders = () => {
+const AllOrders = ({ darkMode }) => {
   const [allOrders, setAllOrders] = useState([]);
   const { register, handleSubmit } = useForm();
   const [orderId, setOrderId] = useState("");
+  const [searchTem, setSearchTerm] = useState("");
   useEffect(() => {
-    fetch(`http://localhost:8080/api/payNow/allorders`)
+    fetch(`https://limitless-sea-74898.herokuapp.com/api/payNow/allorders`)
       .then((res) => res.json())
       .then((data) => {
         setAllOrders(data);
@@ -29,7 +40,9 @@ const AllOrders = () => {
     if (confirmDelete) {
       // deleting product by id
       axios
-        .delete(`http://localhost:8080/api/payNow/deleteorders/${id}`)
+        .delete(
+          `https://limitless-sea-74898.herokuapp.com/api/payNow/deleteorders/${id}`
+        )
         .then((res) => {
           alert(res.data.success);
           const presentOrder = allOrders.filter((book) => book._id !== id);
@@ -41,11 +54,14 @@ const AllOrders = () => {
   // update delivery_status
   const onSubmit = (data) => {
     console.log(data, orderId);
-    fetch(`http://localhost:8080/api/payNow/statusUpdate/${orderId}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      `https://limitless-sea-74898.herokuapp.com/api/payNow/statusUpdate/${orderId}`,
+      {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -67,7 +83,33 @@ const AllOrders = () => {
   };
   return (
     <div className="TotalOrder">
-      <Typography varient="h3">Total Order: {allOrders.length}</Typography>
+      <Typography
+        variant="h4"
+        sx={{
+          fontWeight: "bold",
+          color: `${darkMode ? "white" : "#323232"}`,
+          mr: 3,
+
+          textAlign: "left",
+        }}
+      >
+        Total Order: {allOrders.length}
+        <TextField
+          label="Search an order here"
+          placeholder="Search orders with a customer email"
+          sx={{ width: "30%", ml: "20px" }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <FaSearch style={{ fontSize: "30px" }} />
+              </InputAdornment>
+            ),
+          }}
+          variant="outlined"
+          onChange={(event) => setSearchTerm(event.target.value)}
+        />
+      </Typography>
+
       <Table className="table" style={{ marginTop: "15px" }}>
         <Thead className="thead">
           <Tr>
@@ -82,59 +124,69 @@ const AllOrders = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {allOrders.map(
-            ({
-              cus_name,
-              tran_id,
-              _id,
-              payment_status,
-              total_amount,
-              cus_phone,
-              date,
-              delivery_status,
-            }) => (
-              <Tr key={_id} className="tableData">
-                <Td> {cus_name} </Td>
-                <Td
-                  className={`${
-                    delivery_status === "processing" ? "processing" : "pickedUp"
-                  }`}
-                >
-                  {delivery_status}
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <select
-                      onClick={() => handleApprove(_id)}
-                      {...register("delivery_status")}
-                    >
-                      <option value="Picked up">Picked up</option>
-                      <option value="Delivered">Delivered</option>
-                    </select>
-
-                    <input type="submit" />
-                  </form>
-                </Td>
-                <Td>{tran_id}</Td>
-                <Td
-                  className={`${
-                    payment_status === "Success" ? "success" : "pending"
-                  }`}
-                >
-                  {payment_status}
-                </Td>
-                <Td>{total_amount} taka</Td>
-                <Td>{cus_phone}</Td>
-                <Td>{date}</Td>
-                <Td>
-                  <button
-                    style={{ color: "#d50000", fontSize: "20px" }}
-                    onClick={() => handleDelete(_id)}
+          {allOrders
+            .filter((val) => {
+              if (val.cus_email.includes(searchTem)) {
+                return val;
+              } else if (searchTem === "") {
+                return "";
+              }
+            })
+            .map(
+              ({
+                cus_name,
+                tran_id,
+                _id,
+                payment_status,
+                total_amount,
+                cus_phone,
+                date,
+                delivery_status,
+              }) => (
+                <Tr key={_id} className="tableData">
+                  <Td> {cus_name} </Td>
+                  <Td
+                    className={`${
+                      delivery_status === "processing"
+                        ? "processing"
+                        : "pickedUp"
+                    }`}
                   >
-                    <RiDeleteBin5Fill />
-                  </button>
-                </Td>
-              </Tr>
-            )
-          )}
+                    {delivery_status}
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      <select
+                        onClick={() => handleApprove(_id)}
+                        {...register("delivery_status")}
+                      >
+                        <option value="Picked up">Picked up</option>
+                        <option value="Delivered">Delivered</option>
+                      </select>
+
+                      <input type="submit" />
+                    </form>
+                  </Td>
+                  <Td>{tran_id}</Td>
+                  <Td
+                    className={`${
+                      payment_status === "Success" ? "success" : "pending"
+                    }`}
+                  >
+                    {payment_status}
+                  </Td>
+                  <Td>{total_amount} taka</Td>
+                  <Td>{cus_phone}</Td>
+                  <Td>{date}</Td>
+                  <Td>
+                    <button
+                      style={{ color: "#d50000", fontSize: "20px" }}
+                      onClick={() => handleDelete(_id)}
+                    >
+                      <RiDeleteBin5Fill />
+                    </button>
+                  </Td>
+                </Tr>
+              )
+            )}
         </Tbody>
       </Table>
     </div>

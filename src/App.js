@@ -44,6 +44,8 @@ import AllMarchent from "./DashBoard/DashboardHome/AllMarchent/AllMarchent";
 import AllAdmin from "./DashBoard/DashboardHome/AllAdmin/AllAdmin";
 import PrivateLogin from "./Privateroute/PrivateLogin";
 import AllridersInDashboard from "./DashBoard/Dashboard/Dashboardhome/AllridersInDashboard";
+import FindOrdersById from "./DashBoard/Rider/FindOrdersById";
+import AllAdminInDashboard from "./DashBoard/Dashboard/Dashboardhome/AllAdminInDashboard";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -218,6 +220,22 @@ function App() {
                 element={
                   <PrivateRouteRider>
                     <RiderAccount />
+                  </PrivateRouteRider>
+                }
+              ></Route>
+              <Route
+                path="/dashboard/rider/findorder"
+                element={
+                  <PrivateRouteRider>
+                    <FindOrdersById />
+                  </PrivateRouteRider>
+                }
+              ></Route>
+              <Route
+                path="/dashboard/rider/findanAdmin"
+                element={
+                  <PrivateRouteRider>
+                    <AllAdminInDashboard />
                   </PrivateRouteRider>
                 }
               ></Route>

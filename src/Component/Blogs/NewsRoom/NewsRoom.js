@@ -8,7 +8,7 @@ const NewsRoom = () => {
   const [blogApiThree, setBlogApiThree] = useState([]);
 
   useEffect(() => {
-    const url = `http://localhost:8080/api/blog/fetchblogbycategory/newFeature`;
+    const url = `https://limitless-sea-74898.herokuapp.com/api/blog/fetchblogbycategory/newFeature`;
     axios
       .get(url)
       .then((res) => setBlogApiThree(res.data))

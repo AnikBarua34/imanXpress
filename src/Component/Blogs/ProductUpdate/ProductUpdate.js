@@ -8,7 +8,7 @@ const ProductUpdate = () => {
   const [blogApiTwo, setBlogApiTwo] = useState([]);
 
   useEffect(() => {
-    const url = `http://localhost:8080/api/blog/fetchblogbycategory/aboutProduct`;
+    const url = `https://limitless-sea-74898.herokuapp.com/api/blog/fetchblogbycategory/aboutProduct`;
     axios
       .get(url)
       .then((res) => setBlogApiTwo(res.data))

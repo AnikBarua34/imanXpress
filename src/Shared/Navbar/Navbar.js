@@ -59,7 +59,7 @@ const Navbar = () => {
     if (confirmmessage === true) {
       axios
         .put(
-          `http://localhost:8080/api/authRider/updateloginstatuswhenlogout/${riderinfo.email}`
+          `https://limitless-sea-74898.herokuapp.com/api/authRider/updateloginstatuswhenlogout/${riderinfo.email}`
         )
         .then((res) => {
           console.log(res.change);

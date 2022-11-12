@@ -10,13 +10,16 @@ const MakeAdmin = () => {
 
   const handleMakeAdmin = (e) => {
     const userEmail = { email };
-    fetch("http://localhost:8080/api/authgeneral/getallusers/admin", {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userEmail),
-    })
+    fetch(
+      "https://limitless-sea-74898.herokuapp.com/api/authgeneral/getallusers/admin",
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userEmail),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount) {

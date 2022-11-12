@@ -43,8 +43,11 @@ const RiderRegistration = () => {
   const onSubmit = (data) => {
     console.log(data);
     axios
-      // .post("http://localhost:8080/api/authRider/register", data)
-      .post("http://localhost:8080/api/authRider/register", data)
+      // .post("https://limitless-sea-74898.herokuapp.com/api/authRider/register", data)
+      .post(
+        "https://limitless-sea-74898.herokuapp.com/api/authRider/register",
+        data
+      )
       .then((res) => {
         console.log(res);
         if (res.data.authToken) {

@@ -35,7 +35,10 @@ function Merchantprofile() {
     console.log(mydata);
     // http://localhost:8080
     axios
-      .put(`http://localhost:8080/api/auth/updateprofile/${data._id}`, mydata)
+      .put(
+        `https://limitless-sea-74898.herokuapp.com/api/auth/updateprofile/${data._id}`,
+        mydata
+      )
       .then((res) => {
         const updatedata = JSON.stringify(res.data.updateprofile);
         localStorage.setItem("merchantInfo", updatedata);

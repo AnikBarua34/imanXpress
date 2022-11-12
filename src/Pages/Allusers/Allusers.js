@@ -21,14 +21,18 @@ function Allusers() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/authgeneral/getallusers")
+      .get(
+        "https://limitless-sea-74898.herokuapp.com/api/authgeneral/getallusers"
+      )
       .then((res) => setAllusers(res.data.allusers))
       .catch((err) => console.log(err));
   }, [loginstatus]);
 
   const chatwithuser = (userid) => {
     axios
-      .get(`http://localhost:8080/api/authgeneral/getuserbyid/${userid}`)
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/authgeneral/getuserbyid/${userid}`
+      )
       .then((res) => setUserinfo(res.data.userdata))
       .catch((err) => console.log(err));
 

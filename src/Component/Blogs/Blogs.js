@@ -9,7 +9,7 @@ const Blogs = () => {
   const [blogApi, setBlogApi] = useState([]);
 
   useEffect(() => {
-    const url = `http://localhost:8080/api/blog/fetchblog`;
+    const url = `https://limitless-sea-74898.herokuapp.com/api/blog/fetchblog`;
     axios
       .get(url)
       .then((res) => setBlogApi(res.data))

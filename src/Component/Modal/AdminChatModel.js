@@ -26,15 +26,15 @@ const style = {
   borderRadius: "3px",
 };
 
-export default function Riderchatmodal({
+export default function Adminchatmodal({
   openModal,
   handleClose,
-  userallinfo,
+  riderAllinfo,
 }) {
   const [messages, setMessages] = useState([]);
   const [filterdatas, setFilterdatas] = useState([]);
 
-  const [riderdata, setRiderdata] = useState({});
+  const [adminData, setAdminData] = useState({});
 
   const {
     register,
@@ -44,9 +44,9 @@ export default function Riderchatmodal({
     reset,
   } = useForm();
   const onSubmit = (data) => {
-    data.riderid = riderdata?._id;
-    data.userid = userallinfo?._id;
-    data.status = "rider";
+    data.riderId = riderAllinfo?._id;
+    data.adminid = adminData?._id;
+    data.status = "admin";
 
     db.collection("messages").add({
       message: data,
@@ -58,7 +58,7 @@ export default function Riderchatmodal({
 
   useEffect(() => {
     const riderinfo = JSON.parse(localStorage.getItem("riderInfo"));
-    setRiderdata(riderinfo);
+    setAdminData(riderinfo);
   }, []);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export default function Riderchatmodal({
                   <div class="chat-partner-name">
                     <span class="status online"></span>
                     <a target="_blank" href="https://www.facebook.com/mfreak">
-                      {userallinfo.email}
+                      {riderAllinfo.email}
                     </a>
                   </div>
                   <div class="chatbox-icons">
@@ -114,8 +114,9 @@ export default function Riderchatmodal({
                     {messages
                       ?.filter(
                         (data) =>
-                          data.allmessage.message.userid === userallinfo?._id &&
-                          data.allmessage.message.riderid === riderdata?._id
+                          data.allmessage.message.adminid ===
+                            riderAllinfo?._id &&
+                          data.allmessage.message.riderid === adminData?._id
                       )
                       .map((el) => {
                         return (
@@ -124,7 +125,7 @@ export default function Riderchatmodal({
                               <div className="message-sender">
                                 {el.allmessage.message.status == "rider"
                                   ? "me"
-                                  : userallinfo.email}
+                                  : riderAllinfo.email}
                               </div>
                               <div className="message-box message-partner">
                                 {el.allmessage.message.textmessage}

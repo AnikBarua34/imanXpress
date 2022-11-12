@@ -7,7 +7,7 @@ const OurPartnerSlider = () => {
   const [partners, setPartners] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/partner/getPartner")
+    fetch("https://limitless-sea-74898.herokuapp.com/api/partner/getPartner")
       .then((res) => res.json())
       .then((data) => setPartners(data));
   }, []);

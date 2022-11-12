@@ -51,7 +51,10 @@ const Login = () => {
     try {
       if (data.merchant === "merchant") {
         axios
-          .post("http://localhost:8080/api/auth/login", data)
+          .post(
+            "https://limitless-sea-74898.herokuapp.com/api/auth/login",
+            data
+          )
           .then((res) => {
             console.log("res", res);
             if (res.data.authToken) {
@@ -61,7 +64,7 @@ const Login = () => {
               // rider info fetch from database
               axios
                 .post(
-                  "http://localhost:8080/api/auth/getmerchantuser",
+                  "https://limitless-sea-74898.herokuapp.com/api/auth/getmerchantuser",
                   { hello: "world" },
                   {
                     headers: {
@@ -94,7 +97,10 @@ const Login = () => {
         // rider login
         console.log(data.email);
         axios
-          .post("http://localhost:8080/api/authRider/login", data)
+          .post(
+            "https://limitless-sea-74898.herokuapp.com/api/authRider/login",
+            data
+          )
           .then((res) => {
             console.log("res", res.data);
             if (res.data.authToken) {
@@ -104,7 +110,7 @@ const Login = () => {
               // rider info fetch from database
               axios
                 .post(
-                  "http://localhost:8080/api/authRider/getRider",
+                  "https://limitless-sea-74898.herokuapp.com/api/authRider/getRider",
                   { rider: "Ok" },
                   {
                     headers: {
@@ -118,7 +124,7 @@ const Login = () => {
                   if (res.status === 200) {
                     axios
                       .put(
-                        `http://localhost:8080/api/authRider/updateloginstatus/${data.email}`
+                        `https://limitless-sea-74898.herokuapp.com/api/authRider/updateloginstatus/${data.email}`
                       )
                       .then((res) => {
                         console.log(res.change);

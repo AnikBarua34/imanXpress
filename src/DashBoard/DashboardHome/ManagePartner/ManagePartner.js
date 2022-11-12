@@ -8,7 +8,7 @@ const ManagePartner = () => {
   const [partnerApi, setPartnerApi] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/partner/getPartner")
+    fetch("https://limitless-sea-74898.herokuapp.com/api/partner/getPartner")
       .then((res) => res.json())
       .then((data) => setPartners(data));
   }, [partnerApi]);
@@ -18,11 +18,14 @@ const ManagePartner = () => {
     if (confirmMsg) {
       console.log(id);
       axios
-        .delete(`http://localhost:8080/api/partner/deletePartner/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        .delete(
+          `https://limitless-sea-74898.herokuapp.com/api/partner/deletePartner/${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((res) => {
           console.log("deletedCount", res.data.deletedCount);
           console.log(res.data);

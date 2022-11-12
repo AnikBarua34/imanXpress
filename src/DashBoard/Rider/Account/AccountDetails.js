@@ -47,7 +47,7 @@ export const AccountDetails = () => {
 
     axios
       .post(
-        `http://localhost:8080/api/riderProfile/updateRider/${riderInfo.email}`,
+        `https://limitless-sea-74898.herokuapp.com/api/riderProfile/updateRider/${riderInfo.email}`,
         data
       )
       .then((res) => {

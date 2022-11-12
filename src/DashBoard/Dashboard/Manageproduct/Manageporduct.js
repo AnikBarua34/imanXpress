@@ -33,12 +33,15 @@ function Manageporduct() {
   const handleupdateClose = () => setOpenupdateModal(false);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/merchant/fetchallproducts`, {
-        headers: {
-          "auth-token": mytoken,
-          "Content-Type": "application/json",
-        },
-      })
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/merchant/fetchallproducts`,
+        {
+          headers: {
+            "auth-token": mytoken,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => setAlldata(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -50,12 +53,15 @@ function Manageporduct() {
 
     if (confirmmessage) {
       axios
-        .delete(`http://localhost:8080/api/merchant/deleteproduct/${id}`, {
-          headers: {
-            "auth-token": mytoken,
-            "Content-Type": "application/json",
-          },
-        })
+        .delete(
+          `https://limitless-sea-74898.herokuapp.com/api/merchant/deleteproduct/${id}`,
+          {
+            headers: {
+              "auth-token": mytoken,
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((res) => {
           const datas = alldata.filter((data) => data._id !== id);
           setAlldata(datas);
@@ -72,12 +78,15 @@ function Manageporduct() {
   const viewdata = (id) => {
     console.log(id);
     axios
-      .get(`http://localhost:8080/api/merchant/fetchproduct/${id}`, {
-        headers: {
-          "auth-token": mytoken,
-          "Content-Type": "application/json",
-        },
-      })
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/merchant/fetchproduct/${id}`,
+        {
+          headers: {
+            "auth-token": mytoken,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => setMerchantproductdata(res.data))
       .catch((err) => console.log(err));
     handleinfoOpen();

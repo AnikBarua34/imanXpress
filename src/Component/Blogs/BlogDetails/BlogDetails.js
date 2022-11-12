@@ -11,7 +11,7 @@ const BlogDetails = () => {
   const [blogDetailsData, setBlogDetailsData] = useState({});
 
   useEffect(() => {
-    const url = `http://localhost:8080/api/blog/fetchblog/${id}`;
+    const url = `https://limitless-sea-74898.herokuapp.com/api/blog/fetchblog/${id}`;
     axios
       .get(url)
       .then((res) => {

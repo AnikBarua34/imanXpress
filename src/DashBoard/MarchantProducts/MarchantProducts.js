@@ -41,12 +41,16 @@ const MarchantProducts = () => {
     const mytoken = localStorage.getItem("merchant");
 
     axios
-      .post(`http://localhost:8080/api/merchant/addproduct`, productData, {
-        headers: {
-          "auth-token": mytoken,
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        `https://limitless-sea-74898.herokuapp.com/api/merchant/addproduct`,
+        productData,
+        {
+          headers: {
+            "auth-token": mytoken,
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         if (res.status == 200) {
           Swal.fire({

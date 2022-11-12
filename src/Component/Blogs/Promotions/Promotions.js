@@ -8,7 +8,7 @@ const Promotions = () => {
   const [blogApiThree, setBlogApiThree] = useState([]);
 
   useEffect(() => {
-    const url = `http://localhost:8080/api/blog/fetchblogbycategory/promotion`;
+    const url = `https://limitless-sea-74898.herokuapp.com/api/blog/fetchblogbycategory/promotion`;
     axios
       .get(url)
       .then((res) => setBlogApiThree(res.data))

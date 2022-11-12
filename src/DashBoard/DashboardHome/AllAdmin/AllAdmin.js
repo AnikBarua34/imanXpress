@@ -6,7 +6,9 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 const AllAdmin = () => {
   const [admins, setAdmins] = useState([]);
 
-  fetch("http://localhost:8080/api/authgeneral/getalluserswithadmin")
+  fetch(
+    "https://limitless-sea-74898.herokuapp.com/api/authgeneral/getalluserswithadmin"
+  )
     .then((res) => res.json())
     .then((data) => {
       setAdmins(data.allusers);

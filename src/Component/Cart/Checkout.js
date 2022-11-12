@@ -55,8 +55,8 @@ function Checkout() {
       delivery_status: "processing",
     };
 
-    // fetch(`http://localhost:8080/api/payNow/init`, {
-    fetch(`http://localhost:8080/api/payNow/init`, {
+    // fetch(`https://limitless-sea-74898.herokuapp.com/api/payNow/init`, {
+    fetch(`https://limitless-sea-74898.herokuapp.com/api/payNow/init`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

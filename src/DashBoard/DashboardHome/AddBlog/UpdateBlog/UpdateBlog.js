@@ -26,7 +26,9 @@ const UpdateBlog = () => {
   // fetch blog
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/blog/fetchblog/${blogId}`)
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/blog/fetchblog/${blogId}`
+      )
       .then((res) => {
         console.log(res.data);
         setBlog(res.data);
@@ -40,7 +42,10 @@ const UpdateBlog = () => {
 
     //update blog
     axios
-      .put(`http://localhost:8080/api/blog/updateblog/${blogId}`, data)
+      .put(
+        `https://limitless-sea-74898.herokuapp.com/api/blog/updateblog/${blogId}`,
+        data
+      )
       .then((res) => {
         console.log(res.data.success);
         if (res.data.success) {

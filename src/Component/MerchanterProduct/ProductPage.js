@@ -95,20 +95,26 @@ function ProductPage() {
   // console.log(mydata)
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/auth/getmerchantuser/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/auth/getmerchantuser/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => setMerchantdata(res.data))
       .catch((err) => console.log(err));
 
     axios
-      .get(`http://localhost:8080/api/merchant/fetchallproductsbyid/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/merchant/fetchallproductsbyid/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => setAllproduct(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -139,7 +145,9 @@ function ProductPage() {
 
   const viewdata = (id) => {
     axios
-      .get(`http://localhost:8080/api/merchant/fetchproductbyid/${id}`)
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/merchant/fetchproductbyid/${id}`
+      )
       .then((res) => setMerchantproductdata(res.data))
       .catch((err) => console.log(err));
     handleOpen();
@@ -149,11 +157,15 @@ function ProductPage() {
     alert("You search " + "" + data.searchproduct);
 
     axios
-      .post(`http://localhost:8080/api/merchant/getproductbyname/${id}`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        `https://limitless-sea-74898.herokuapp.com/api/merchant/getproductbyname/${id}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((res) => {
         setSearchproduct(res.data.products);
         if (res.data.not) {

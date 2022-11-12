@@ -6,7 +6,9 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 const AllUser = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8080/api/authgeneral/getallusers`)
+    fetch(
+      `https://limitless-sea-74898.herokuapp.com/api/authgeneral/getallusers`
+    )
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.allusers);

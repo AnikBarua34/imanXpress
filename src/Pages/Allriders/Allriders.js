@@ -26,7 +26,9 @@ function Allriders() {
     let time = d.getTime();
     console.log(time);
     axios
-      .get("http://localhost:8080/api/riderProfile/getallriders")
+      .get(
+        "https://limitless-sea-74898.herokuapp.com/api/riderProfile/getallriders"
+      )
       .then((res) => setAllriders(res.data.riders))
       .catch((err) => console.log(err));
   }, []);
@@ -34,9 +36,11 @@ function Allriders() {
   console.log(loginstatus);
 
   const chatwithrider = (riderid) => {
-    // http://localhost:8080/
+    // https://limitless-sea-74898.herokuapp.com/
     axios
-      .get(`http://localhost:8080/api/riderProfile/getriderbyid/${riderid}`)
+      .get(
+        `https://limitless-sea-74898.herokuapp.com/api/riderProfile/getriderbyid/${riderid}`
+      )
       .then((res) => setRiderinfo(res.data.rider))
       .catch((err) => console.log(err));
 

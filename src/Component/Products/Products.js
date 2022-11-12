@@ -12,7 +12,7 @@ const Products = ({ darkMode }) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8080/api/auth/getmerchantuserbycategory/${category}`,
+        `https://limitless-sea-74898.herokuapp.com/api/auth/getmerchantuserbycategory/${category}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -26,7 +26,7 @@ const Products = ({ darkMode }) => {
   const allresturant = (category) => {
     axios
       .get(
-        `http://localhost:8080/api/auth/getmerchantuserbycategory/${category}`,
+        `https://limitless-sea-74898.herokuapp.com/api/auth/getmerchantuserbycategory/${category}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const Products = ({ darkMode }) => {
   const allmedicine = (category) => {
     axios
       .get(
-        `http://localhost:8080/api/auth/getmerchantuserbycategory/${category}`,
+        `https://limitless-sea-74898.herokuapp.com/api/auth/getmerchantuserbycategory/${category}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const Products = ({ darkMode }) => {
   const allsupershop = (category) => {
     axios
       .get(
-        `http://localhost:8080/api/auth/getmerchantuserbycategory/${category}`,
+        `https://limitless-sea-74898.herokuapp.com/api/auth/getmerchantuserbycategory/${category}`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -43,7 +43,7 @@ function Merchantorders() {
 
     axios
       .get(
-        `http://localhost:8080/api/payNow/getordersbymerchantid/${merchantinfo._id}`
+        `https://limitless-sea-74898.herokuapp.com/api/payNow/getordersbymerchantid/${merchantinfo._id}`
       )
       .then((res) => {
         setOrders(res.data);

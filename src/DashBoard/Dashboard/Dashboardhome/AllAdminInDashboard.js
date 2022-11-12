@@ -1,13 +1,13 @@
 import "./Dashboardhome.css";
 import React, { useState, useEffect } from "react";
 import "firebase/compat/firestore";
-import Adminchatmodal from "../../../Component/Modal/AdminChatModel";
+import Userchatmodal from "../../../Component/Modal/Userchatmodal";
 import rider2 from "../../..//img/rider2.jpg";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import useAuth from "../../../Hooks/useAuth";
 
-function AllridersInDashboard({ darkMode }) {
+function AllAdminInDashboard({ darkMode }) {
   const [allriders, setAllriders] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [riderinfo, setRiderinfo] = useState({});
@@ -22,21 +22,21 @@ function AllridersInDashboard({ darkMode }) {
     console.log(time);
     axios
       .get(
-        "https://limitless-sea-74898.herokuapp.com/api/riderProfile/getallriders"
+        "https://limitless-sea-74898.herokuapp.com/api/authgeneral/getalluserswithadmin"
       )
-      .then((res) => setAllriders(res.data.riders))
+      .then((res) => setAllriders(res.data.admins))
       .catch((err) => console.log(err));
   }, []);
 
   console.log(loginstatus);
 
-  const chatwithrider = (riderid) => {
+  const chatwithrider = (adminid) => {
     // https://limitless-sea-74898.herokuapp.com/
     axios
       .get(
-        `https://limitless-sea-74898.herokuapp.com/api/riderProfile/getriderbyid/${riderid}`
+        `https://limitless-sea-74898.herokuapp.com/api/authgeneral/getalluserswithadmin/${adminid}`
       )
-      .then((res) => setRiderinfo(res.data.rider))
+      .then((res) => setRiderinfo(res.data.admin))
       .catch((err) => console.log(err));
 
     handleOpen();
@@ -57,7 +57,7 @@ function AllridersInDashboard({ darkMode }) {
             textAlign: "center",
           }}
         >
-          Chat with Riders
+          Chat with Admin
         </Typography>
         <Typography
           color="text.secondary"
@@ -103,7 +103,7 @@ function AllridersInDashboard({ darkMode }) {
           })}
         </Grid>
       </Container>
-      <Adminchatmodal
+      <Userchatmodal
         openModal={openModal}
         handleClose={handleClose}
         riderallinfo={riderinfo}
@@ -112,4 +112,4 @@ function AllridersInDashboard({ darkMode }) {
   );
 }
 
-export default AllridersInDashboard;
+export default AllAdminInDashboard;

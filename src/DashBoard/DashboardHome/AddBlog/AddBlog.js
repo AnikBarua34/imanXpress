@@ -32,7 +32,7 @@ const AddBlog = () => {
 
     data.image = imageURL;
 
-    const url = `http://localhost:8080/api/blog/addblog`;
+    const url = `https://limitless-sea-74898.herokuapp.com/api/blog/addblog`;
 
     axios
       .post(url, data, {
@@ -53,9 +53,6 @@ const AddBlog = () => {
   return (
     <div className="addBlogContainer">
       <Container>
-        <div className="addBlogTitle">
-          <img src="https://i.ibb.co/pZsbPZj/IMan-Xpress.png" alt="Empty" />
-        </div>
         <div className="addBlogFrom">
           <Paper elevation={12}>
             <Grid container spacing={2}>

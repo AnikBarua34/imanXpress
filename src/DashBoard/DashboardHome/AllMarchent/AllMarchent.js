@@ -8,8 +8,8 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 const AllMarchent = () => {
   const [marchent, setMarchent] = useState([]);
   const [partnerApi, setPartnerApi] = useState([]);
-  fetch("http://localhost:8080/api/auth/getmerchantuser")
-    //   fetch("http://localhost:8080/api/auth/getmerchantuser")
+  fetch("https://limitless-sea-74898.herokuapp.com/api/auth/getmerchantuser")
+    //   fetch("https://limitless-sea-74898.herokuapp.com/api/auth/getmerchantuser")
     .then((res) => res.json())
     .then((data) => setMarchent(data));
   const handleMerchant = (id) => {
@@ -18,8 +18,8 @@ const AllMarchent = () => {
       console.log(id);
       axios
         .delete(
-          `http://localhost:8080/api/auth/deleteMerchant/${id}`,
-          //   `http://localhost:8080/api/auth/getmerchantuser/deleteMerchant/${id}`,
+          `https://limitless-sea-74898.herokuapp.com/api/auth/deleteMerchant/${id}`,
+          //   `https://limitless-sea-74898.herokuapp.com/api/auth/getmerchantuser/deleteMerchant/${id}`,
           {
             headers: {
               "Content-Type": "application/json",
